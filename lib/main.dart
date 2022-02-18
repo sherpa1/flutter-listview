@@ -57,7 +57,6 @@ class PeoplePreview extends StatelessWidget {
   final Function onPeopleSelected;
 
   void _onTap() {
-    //print(people.id.toString());
     onPeopleSelected(people); //parent callback function
   }
 
@@ -82,12 +81,11 @@ class PeopleMaster extends StatefulWidget {
 }
 
 class _PeopleMasterState extends State<PeopleMaster> {
-  People? _selectedPeople;
+  People? selectedPeople; //selectedPeople = null or the People selected
 
   void onPeopleSelected(People people) {
-    //print(people.id.toString());
     setState(() {
-      _selectedPeople = people;
+      selectedPeople = people;
     });
   }
 
@@ -99,8 +97,8 @@ class _PeopleMasterState extends State<PeopleMaster> {
       ),
       body: Column(
         children: [
-          (_selectedPeople != null)
-              ? Text(_selectedPeople!.fullname())
+          (selectedPeople != null)
+              ? PeopleDetails(people: selectedPeople)
               : Container(),
           Expanded(
             child: ListView.builder(
@@ -115,6 +113,23 @@ class _PeopleMasterState extends State<PeopleMaster> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class PeopleDetails extends StatelessWidget {
+  const PeopleDetails({Key? key, required this.people}) : super(key: key);
+
+  final People? people;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(people!.firstname),
+        Text(people!.lastname),
+        Text(people!.email),
+      ],
     );
   }
 }
