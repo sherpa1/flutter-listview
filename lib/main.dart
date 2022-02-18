@@ -82,8 +82,12 @@ class PeopleMaster extends StatefulWidget {
 }
 
 class _PeopleMasterState extends State<PeopleMaster> {
+  People? selectedPeople; //selectedPeople = null or the People selected
+
   void onPeopleSelected(People people) {
-    //print(people.id.toString());
+    setState(() {
+      selectedPeople = people;
+    });
   }
 
   @override
@@ -92,17 +96,41 @@ class _PeopleMasterState extends State<PeopleMaster> {
       appBar: AppBar(
         title: const Text("People Master"),
       ),
-      body: Center(
-        child: ListView.builder(
-          itemCount: widget.people.length,
-          itemBuilder: (context, index) {
-            return PeoplePreview(
-              people: widget.people[index],
-              onPeopleSelected: onPeopleSelected,
-            );
-          },
-        ),
+      body: Column(
+        children: [
+          (selectedPeople != null)
+              ? PeopleDetails(people: selectedPeople)
+              : Container(),
+          Expanded(
+            child: ListView.builder(
+              itemCount: widget.people.length,
+              itemBuilder: (context, index) {
+                return PeoplePreview(
+                  people: widget.people[index],
+                  onPeopleSelected: onPeopleSelected,
+                );
+              },
+            ),
+          ),
+        ],
       ),
+    );
+  }
+}
+
+class PeopleDetails extends StatelessWidget {
+  const PeopleDetails({Key? key, required this.people}) : super(key: key);
+
+  final People? people;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(people!.firstname),
+        Text(people!.lastname),
+        Text(people!.email),
+      ],
     );
   }
 }
