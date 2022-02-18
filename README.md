@@ -1,16 +1,21 @@
-# flutter_listview
+# Flutter ListView
 
-A new Flutter project.
+- Création de classe Dart
+- Génération d'items dans une liste typée
+- Utilisation du package Faker
+- Affichage des items dans une ListView
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+__Alexandre Leroux__
 
-A few resources to get you started if this is your first Flutter project:
+- alex@sherpa.one
+- https://sherpa.one
+- sherpa#3890
+- https://github.com/sherpa1/
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+_Enseignant vacataire à l'Université de Lorraine_
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- IUT Nancy-Charlemagne (LP Ciasie)
+
+- Institut des Sciences du Digital, Management & Cognition (Masters Sciences Cognitives)
