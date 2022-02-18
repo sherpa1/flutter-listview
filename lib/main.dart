@@ -82,8 +82,13 @@ class PeopleMaster extends StatefulWidget {
 }
 
 class _PeopleMasterState extends State<PeopleMaster> {
+  People? _selectedPeople;
+
   void onPeopleSelected(People people) {
     //print(people.id.toString());
+    setState(() {
+      _selectedPeople = people;
+    });
   }
 
   @override
@@ -92,16 +97,23 @@ class _PeopleMasterState extends State<PeopleMaster> {
       appBar: AppBar(
         title: const Text("People Master"),
       ),
-      body: Center(
-        child: ListView.builder(
-          itemCount: widget.people.length,
-          itemBuilder: (context, index) {
-            return PeoplePreview(
-              people: widget.people[index],
-              onPeopleSelected: onPeopleSelected,
-            );
-          },
-        ),
+      body: Column(
+        children: [
+          (_selectedPeople != null)
+              ? Text(_selectedPeople!.fullname())
+              : Container(),
+          Expanded(
+            child: ListView.builder(
+              itemCount: widget.people.length,
+              itemBuilder: (context, index) {
+                return PeoplePreview(
+                  people: widget.people[index],
+                  onPeopleSelected: onPeopleSelected,
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
