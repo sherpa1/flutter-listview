@@ -83,7 +83,7 @@ class PeopleMaster extends StatefulWidget {
 
 class _PeopleMasterState extends State<PeopleMaster> {
   void onPeopleSelected(People people) {
-    print(people.id.toString());
+    //print(people.id.toString());
   }
 
   @override
