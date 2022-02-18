@@ -1,4 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:faker/faker.dart';
+
+class People {
+  int id;
+  String firstname;
+  String lastname;
+  String email;
+
+  People(
+      {required this.id,
+      required this.firstname,
+      required this.lastname,
+      required this.email});
+}
+
+//global data source
+List<People> fakePeople = List.generate(
+    50,
+    (i) => People(
+        id: i + 1,
+        firstname: faker.person.firstName(),
+        lastname: faker.person.lastName(),
+        email: faker.internet.email()));
 
 void main() {
   runApp(const MyApp());
@@ -14,37 +37,38 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      home: PeopleMaster(
+        people: fakePeople,
+      ), /*remove const before PeopleMaster constructor as fakePeople is a dynamic source*/
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class PeopleMaster extends StatefulWidget {
+  const PeopleMaster({Key? key, required this.people}) : super(key: key);
+
+  final List<People> people;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<PeopleMaster> createState() => _PeopleMasterState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _PeopleMasterState extends State<PeopleMaster> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("List"),
+        title: const Text("People Master"),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(),
-          ],
+        child: ListView.builder(
+          itemCount: widget.people.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(widget.people[index].firstname),
+            );
+          },
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => print('click'),
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
