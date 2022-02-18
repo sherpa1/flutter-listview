@@ -12,6 +12,10 @@ class People {
       required this.firstname,
       required this.lastname,
       required this.email});
+
+  String fullname() {
+    return firstname + " " + lastname;
+  }
 }
 
 //global data source
@@ -44,6 +48,30 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class PeoplePreview extends StatelessWidget {
+  const PeoplePreview(
+      {Key? key, required this.people, required this.onPeopleSelected})
+      : super(key: key);
+
+  final People people;
+  final Function onPeopleSelected;
+
+  void _onTap() {
+    //print(people.id.toString());
+    onPeopleSelected(people); //parent callback function
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(
+        people.fullname(),
+      ),
+      onTap: () => _onTap(),
+    );
+  }
+}
+
 class PeopleMaster extends StatefulWidget {
   const PeopleMaster({Key? key, required this.people}) : super(key: key);
 
@@ -54,6 +82,10 @@ class PeopleMaster extends StatefulWidget {
 }
 
 class _PeopleMasterState extends State<PeopleMaster> {
+  void onPeopleSelected(People people) {
+    print(people.id.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,8 +96,9 @@ class _PeopleMasterState extends State<PeopleMaster> {
         child: ListView.builder(
           itemCount: widget.people.length,
           itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(widget.people[index].firstname),
+            return PeoplePreview(
+              people: widget.people[index],
+              onPeopleSelected: onPeopleSelected,
             );
           },
         ),
